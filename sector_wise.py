@@ -132,6 +132,7 @@ df_sector_1999_2000_3['Tertiary sector'] = pd.Series([(df_sector_1999_2000_3.ix[
 
 df_1993_94 = pd.DataFrame(index = df_sector_1993_94_1.index, columns = None)
 df_1999_2000 = pd.DataFrame(index = df_sector_1999_2000_1.index, columns = None)
+# df_average = pd.DataFrame(index = df_sector_1993_94_1.index, columns = None)
 
 df_1993_94['Primary sector'] = df_sector_1993_94_1['Primary sector'] 
 df_1993_94['Secondary sector'] = df_sector_1993_94_2['Secondary sector']
@@ -140,6 +141,30 @@ df_1993_94['Tertiary sector'] = df_sector_1993_94_3['Tertiary sector']
 df_1999_2000['Primary sector'] = df_sector_1999_2000_1['Primary sector'] 
 df_1999_2000['Secondary sector'] = df_sector_1999_2000_2['Secondary sector']
 df_1999_2000['Tertiary sector'] = df_sector_1999_2000_3['Tertiary sector']
+
+
+
+df_growth_1993_94 = pd.DataFrame(index = df_sector_1993_94_1.index[1:], columns = None)
+df_growth_1999_2000 = pd.DataFrame(index = df_sector_1999_2000_1.index[1:], columns = None)
+
+for i in range(1, len(df_1993_94)):
+	df_growth_1993_94.loc[df_1993_94.index[i], df_1993_94.columns[0]] = 100 * ((df_1993_94.ix[df_1993_94.index[i]][df_1993_94.columns[0]] - df_1993_94.ix[df_1993_94.index[i-1]][df_1993_94.columns[0]])/df_1993_94.ix[df_1993_94.index[i-1]][df_1993_94.columns[0]])
+	df_growth_1993_94.loc[df_1993_94.index[i], df_1993_94.columns[1]] = 100 * ((df_1993_94.ix[df_1993_94.index[i]][df_1993_94.columns[1]] - df_1993_94.ix[df_1993_94.index[i-1]][df_1993_94.columns[1]])/df_1993_94.ix[df_1993_94.index[i-1]][df_1993_94.columns[1]])
+	df_growth_1993_94.loc[df_1993_94.index[i], df_1993_94.columns[2]] = 100 * ((df_1993_94.ix[df_1993_94.index[i]][df_1993_94.columns[2]] - df_1993_94.ix[df_1993_94.index[i-1]][df_1993_94.columns[2]])/df_1993_94.ix[df_1993_94.index[i-1]][df_1993_94.columns[2]])
+
+	df_growth_1999_2000.loc[df_1999_2000.index[i], df_1999_2000.columns[0]] = 100 * ((df_1999_2000.ix[df_1999_2000.index[i]][df_1999_2000.columns[0]] - df_1999_2000.ix[df_1999_2000.index[i-1]][df_1999_2000.columns[0]])/df_1999_2000.ix[df_1999_2000.index[i-1]][df_1999_2000.columns[0]])
+	df_growth_1999_2000.loc[df_1999_2000.index[i], df_1999_2000.columns[1]] = 100 * ((df_1999_2000.ix[df_1999_2000.index[i]][df_1999_2000.columns[1]] - df_1999_2000.ix[df_1999_2000.index[i-1]][df_1999_2000.columns[1]])/df_1999_2000.ix[df_1999_2000.index[i-1]][df_1999_2000.columns[1]])
+	df_growth_1999_2000.loc[df_1999_2000.index[i], df_1999_2000.columns[2]] = 100 * ((df_1999_2000.ix[df_1999_2000.index[i]][df_1999_2000.columns[2]] - df_1999_2000.ix[df_1999_2000.index[i-1]][df_1999_2000.columns[2]])/df_1999_2000.ix[df_1999_2000.index[i-1]][df_1999_2000.columns[2]])
+
+df_average_growth = df_growth_1993_94.add(df_growth_1999_2000)
+df_average_growth.loc[:] /= 2
+
+# plt.plot(df_average_growth.index, df_average_growth['Primary sector'], 'b-o', label='PS')
+# plt.plot(df_average_growth.index, df_average_growth['Secondary sector'], 'r-o', label='SS')
+# plt.plot(df_average_growth.index, df_average_growth['Tertiary sector'], 'g-o', label='TS')
+# plt.show()
+
+diff_df = df_growth_1999_2000.sub(df_growth_1993_94)
 
 
 print(df_sector_1993_94_1)
@@ -151,10 +176,6 @@ print('#########################################################################
 print(df_sector_1993_94_3)
 print()
 print('########################################################################################\n')
-print(df_1993_94)
-print()
-print('########################################################################################\n')
-
 print(df_sector_1999_2000_1)
 print()
 print('########################################################################################\n')
@@ -164,12 +185,37 @@ print('#########################################################################
 print(df_sector_1999_2000_3)
 print()
 print('########################################################################################\n')
+print(df_1993_94)
+print()
+print('########################################################################################\n')
 print(df_1999_2000)
+print()
+print('########################################################################################\n')
+print(df_growth_1993_94)
+print()
+print('########################################################################################\n')
+print(df_growth_1999_2000)
+print()
+print('########################################################################################\n')
+print(df_average_growth)
+print()
+print('########################################################################################\n')
+print(diff_df)
 print()
 print('########################################################################################\n')
 
 
+plt.plot(df_average_growth.index, df_average_growth['Primary sector'], 'b-o', label='PS')
+plt.plot(df_average_growth.index, df_average_growth['Secondary sector'], 'r-o', label='SS')
+plt.plot(df_average_growth.index, df_average_growth['Tertiary sector'], 'g-o', label='TS')
+plt.show()
 
+p1 = plt.bar(df_1993_94.index, df_1993_94['Primary sector'])
+p2 = plt.bar(df_1993_94.index, df_1993_94['Secondary sector'], bottom=df_1993_94['Primary sector'])
+p3 = plt.bar(df_1993_94.index, df_1993_94['Tertiary sector'], bottom=df_1993_94['Secondary sector']+df_1993_94['Primary sector'])
+
+plt.legend((p1[0], p2[0], p3[0]), ('PS', 'SS', 'TS'))
+plt.show()
 
 
 
