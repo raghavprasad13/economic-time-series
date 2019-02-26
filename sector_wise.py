@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from tabula import read_pdf
+# import docx
 
 pd.set_option('display.max_colwidth', 75)
 pd.set_option('display.max_rows', 200)
@@ -204,17 +205,66 @@ print(diff_df)
 print()
 print('########################################################################################\n')
 
+# df_growth_1993_94.to_csv('Growth percentage 1993-94.tsv', sep = '\t', encoding = 'utf-8')
+# df_growth_1999_2000.to_csv('Growth percentage 1999-2000.tsv', sep = '\t', encoding = 'utf-8')
+
+# df_average_growth.to_csv('Growth percentage average.tsv', sep = '\t', encoding = 'utf-8')
+
+# diff_df.to_csv('Difference.tsv', sep = '\t', encoding = 'utf-8')
+
+# df_1993_94.to_csv('1993-94.tsv', sep = '\t', encoding = 'utf-8')
+
+# doc = docx.Document("./Growth.docx")
+
+# t = doc.add_table(df_growth_1993_94.shape[0]+1, df_growth_1993_94.shape[1])
+# t.style = 'TableGrid'
+
+# for j in range(df_growth_1993_94.shape[-1]):
+#     t.cell(0,j).text = df_growth_1993_94.columns[j]
+
+# for i in range(df_growth_1993_94.shape[0]):
+#     for j in range(df_growth_1993_94.shape[-1]):
+#         t.cell(i+1,j).text = str(df_growth_1993_94.values[i,j])
+
+# doc.save("./Growth.docx")
 
 plt.plot(df_average_growth.index, df_average_growth['Primary sector'], 'b-o', label='PS')
 plt.plot(df_average_growth.index, df_average_growth['Secondary sector'], 'r-o', label='SS')
 plt.plot(df_average_growth.index, df_average_growth['Tertiary sector'], 'g-o', label='TS')
+
+z1 = np.polyfit(range(len(df_average_growth.index.tolist())), df_average_growth['Primary sector'], 7)
+q1 = np.poly1d(z1)
+plt.plot(df_average_growth.index, q1(range(len(df_average_growth.index.tolist()))), 'b--')
+
+z2 = np.polyfit(range(len(df_average_growth.index.tolist())), df_average_growth['Secondary sector'], 7)
+q2 = np.poly1d(z2)
+plt.plot(df_average_growth.index, q2(range(len(df_average_growth.index.tolist()))), 'r--')
+
+z3 = np.polyfit(range(len(df_average_growth.index.tolist())), df_average_growth['Tertiary sector'], 7)
+q3 = np.poly1d(z3)
+plt.plot(df_average_growth.index, q3(range(len(df_average_growth.index.tolist()))), 'g--')
+
+x = np.array([i for i in range(len(df_growth_1993_94.index.tolist()))])
+
+plt.xticks(x, list(df_growth_1993_94.index), rotation = 'vertical')
+
+plt.ylabel('Percentage Growth')
+plt.xlabel('Year')
+plt.gca().legend(('Primary sector', 'Secondary sector', 'Tertiary sector'))
 plt.show()
 
 p1 = plt.bar(df_1993_94.index, df_1993_94['Primary sector'])
 p2 = plt.bar(df_1993_94.index, df_1993_94['Secondary sector'], bottom=df_1993_94['Primary sector'])
 p3 = plt.bar(df_1993_94.index, df_1993_94['Tertiary sector'], bottom=df_1993_94['Secondary sector']+df_1993_94['Primary sector'])
 
-plt.legend((p1[0], p2[0], p3[0]), ('PS', 'SS', 'TS'))
+plt.ylabel('Total GDP (Rs. Crore)')
+plt.xlabel('Year')
+
+x = np.array([i for i in range(len(df_1993_94.index.tolist()))])
+
+plt.xticks(x, df_1993_94.index.tolist(), rotation = 'vertical')
+
+plt.legend((p1[0], p2[0], p3[0]), ('Primary Sector', 'Secondary Sector', 'Tertiary Sector'))
 plt.show()
 
 
