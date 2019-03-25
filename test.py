@@ -119,7 +119,7 @@ for i in range(1, len(df_1993_94.index)):
 # # print(x)
 
 # plt.xticks(x, list(df_1993_94.index))
-plt.plot(df_1993_94.index, df_1993_94[col_list_1993_94[2]], 'b-o')
+p11 = plt.plot(df_1993_94.index, df_1993_94[col_list_1993_94[2]], 'b-o')
 # plt.show()
 
 ######################################################################################
@@ -131,8 +131,8 @@ plt.plot(df_1993_94.index, df_1993_94[col_list_1993_94[2]], 'b-o')
 x = np.array([i for i in range(len(df_1999_2000[col_list_1999_2000[1]]))])
 # print(x)
 
-plt.xticks(x, list(df_1999_2000.index))
-plt.plot(df_1999_2000.index, df_1999_2000[col_list_1999_2000[1]], 'r-o')
+plt.xticks(x, list(df_1999_2000.index), rotation = 'vertical')
+p12 = plt.plot(df_1999_2000.index, df_1999_2000[col_list_1999_2000[1]], 'r-o')
 # plt.show()
 
 ######################################################################################
@@ -145,21 +145,26 @@ plt.plot(df_1999_2000.index, df_1999_2000[col_list_1999_2000[1]], 'r-o')
 # print(x)
 
 # plt.xticks(x, list(df_2004_05.index))
-plt.plot(df_2004_05.index, df_2004_05[col_list_2004_05[1]], 'g-o')
+p13 = plt.plot(df_2004_05.index, df_2004_05[col_list_2004_05[1]], 'g-o')
 
 plt.ylabel('GDP (in Rs. crore)')
 plt.xlabel('Year')
 
+plt.legend((p11[0], p12[0], p13[0]), ('Base year: 1993-94', 'Base year: 1999-00', 'Base year: 2004-05'))
+
 plt.show()
 
+x = np.array([i for i in range(len(df_1999_2000[col_list_1999_2000[1]])-1)])
 
-
-plt.plot(df_1993_94_growth.index, df_1993_94_growth[col_list_1993_94[2]], 'b-o')
-plt.plot(df_1999_2000_growth.index, df_1999_2000_growth[col_list_1999_2000[1]], 'r-o')
-plt.plot(df_2004_05_growth.index, df_2004_05_growth[col_list_2004_05[1]], 'g-o')
+plt.xticks(x, list(df_2004_05_growth.index), rotation = 'vertical')
+p21 = plt.plot(df_1993_94_growth.index, df_1993_94_growth[col_list_1993_94[2]], 'b-o')
+p22 = plt.plot(df_1999_2000_growth.index, df_1999_2000_growth[col_list_1999_2000[1]], 'r-o')
+p23 = plt.plot(df_2004_05_growth.index, df_2004_05_growth[col_list_2004_05[1]], 'g-o')
 
 plt.ylabel('Percentage growth in GDP')
 plt.xlabel('Year (from 1951-52 to 2013-14)')
+
+plt.legend((p21[0], p22[0], p23[0]), ('Base year: 1993-94', 'Base year: 1999-00', 'Base year: 2004-05'))
 
 plt.show()
 
