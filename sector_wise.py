@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from tabula import read_pdf
+from matplotlib.widgets import Button
+import time
 # import docx
 
 pd.set_option('display.max_colwidth', 75)
@@ -139,6 +141,14 @@ df_1993_94['Primary sector'] = df_sector_1993_94_1['Primary sector']
 df_1993_94['Secondary sector'] = df_sector_1993_94_2['Secondary sector']
 df_1993_94['Tertiary sector'] = df_sector_1993_94_3['Tertiary sector']
 
+df_1993_94['Total GDP'] = pd.Series([df_1993_94.ix[x]['Primary sector'] + df_1993_94.ix[x]['Secondary sector'] + df_1993_94.ix[x]['Tertiary sector'] for x in df_1993_94.index.tolist()], index = df_1993_94.index)
+df_1993_94['% Primary'] = pd.Series([float("{0:.2f}".format(100 * (df_1993_94.ix[x]['Primary sector']/df_1993_94.ix[x]['Total GDP']))) for x in df_1993_94.index.tolist()], index = df_1993_94.index)
+df_1993_94['% Secondary'] = pd.Series([float("{0:.2f}".format(100 * (df_1993_94.ix[x]['Secondary sector']/df_1993_94.ix[x]['Total GDP']))) for x in df_1993_94.index.tolist()], index = df_1993_94.index)
+df_1993_94['% Tertiary'] = pd.Series([float("{0:.2f}".format(100 * (df_1993_94.ix[x]['Tertiary sector']/df_1993_94.ix[x]['Total GDP']))) for x in df_1993_94.index.tolist()], index = df_1993_94.index)
+
+
+
+
 df_1999_2000['Primary sector'] = df_sector_1999_2000_1['Primary sector'] 
 df_1999_2000['Secondary sector'] = df_sector_1999_2000_2['Secondary sector']
 df_1999_2000['Tertiary sector'] = df_sector_1999_2000_3['Tertiary sector']
@@ -168,42 +178,42 @@ df_average_growth.loc[:] /= 2
 diff_df = df_growth_1999_2000.sub(df_growth_1993_94)
 
 
-print(df_sector_1993_94_1)
-print()
-print('########################################################################################\n')
-print(df_sector_1993_94_2)
-print()
-print('########################################################################################\n')
-print(df_sector_1993_94_3)
-print()
-print('########################################################################################\n')
-print(df_sector_1999_2000_1)
-print()
-print('########################################################################################\n')
-print(df_sector_1999_2000_2)
-print()
-print('########################################################################################\n')
-print(df_sector_1999_2000_3)
-print()
-print('########################################################################################\n')
+# print(df_sector_1993_94_1)
+# print()
+# print('########################################################################################\n')
+# print(df_sector_1993_94_2)
+# print()
+# print('########################################################################################\n')
+# print(df_sector_1993_94_3)
+# print()
+# print('########################################################################################\n')
+# print(df_sector_1999_2000_1)
+# print()
+# print('########################################################################################\n')
+# print(df_sector_1999_2000_2)
+# print()
+# print('########################################################################################\n')
+# print(df_sector_1999_2000_3)
+# print()
+# print('########################################################################################\n')
 print(df_1993_94)
 print()
 print('########################################################################################\n')
-print(df_1999_2000)
-print()
-print('########################################################################################\n')
-print(df_growth_1993_94)
-print()
-print('########################################################################################\n')
-print(df_growth_1999_2000)
-print()
-print('########################################################################################\n')
-print(df_average_growth)
-print()
-print('########################################################################################\n')
-print(diff_df)
-print()
-print('########################################################################################\n')
+# print(df_1999_2000)
+# print()
+# print('########################################################################################\n')
+# print(df_growth_1993_94)
+# print()
+# print('########################################################################################\n')
+# print(df_growth_1999_2000)
+# print()
+# print('########################################################################################\n')
+# print(df_average_growth)
+# print()
+# print('########################################################################################\n')
+# print(diff_df)
+# print()
+# print('########################################################################################\n')
 
 # df_growth_1993_94.to_csv('Growth percentage 1993-94.tsv', sep = '\t', encoding = 'utf-8')
 # df_growth_1999_2000.to_csv('Growth percentage 1999-2000.tsv', sep = '\t', encoding = 'utf-8')
@@ -253,9 +263,57 @@ plt.xlabel('Year')
 plt.gca().legend(('Primary sector', 'Secondary sector', 'Tertiary sector'))
 plt.show()
 
+
+fig = plt.figure()
+
 p1 = plt.bar(df_1993_94.index, df_1993_94['Primary sector'])
+# ax = df_1993_94['Primary sector'].plot(kind='bar')
 p2 = plt.bar(df_1993_94.index, df_1993_94['Secondary sector'], bottom=df_1993_94['Primary sector'])
 p3 = plt.bar(df_1993_94.index, df_1993_94['Tertiary sector'], bottom=df_1993_94['Secondary sector']+df_1993_94['Primary sector'])
+
+primary_rects = p1.patches
+secondary_rects = p2.patches
+tertiary_rects = p3.patches
+
+primary_percentages = [df_1993_94.ix[x]['% Primary'] for x in df_1993_94.index]
+secondary_percentages = [df_1993_94.ix[x]['% Secondary'] for x in df_1993_94.index]
+teriary_percentages = [df_1993_94.ix[x]['% Tertiary'] for x in df_1993_94.index]
+
+txt = []
+count = 1
+for rect1, rect2, rect3, label1, label2, label3 in zip(primary_rects, secondary_rects, tertiary_rects, primary_percentages, secondary_percentages, teriary_percentages):
+	if count<33:
+		height = rect1.get_height() + rect2.get_height() + rect3.get_height()
+		temp = str(label1)+" | "+str(label2)+" | "+str(label3)
+		t1 = plt.text(rect1.get_x()+rect1.get_width()/2., 1.1*height, temp, ha='center', va='bottom', rotation = 'vertical', fontsize=6)
+		t1.set_visible(False)
+		txt.append(t1)
+		count += 1
+
+	else:
+		height1 = rect1.get_height()
+		t1 = plt.text(rect1.get_x()+rect1.get_width()/2., height1/3, label1, ha='center', va='bottom', rotation = 'vertical', fontsize=6)
+		t1.set_visible(False)
+		txt.append(t1)
+
+		height2 = rect2.get_height()
+		t2 = plt.text(rect1.get_x()+rect1.get_width()/2., (height2/6)+ height1, label1, ha='center', va='bottom', rotation = 'vertical', fontsize=6)
+		t2.set_visible(False)
+		txt.append(t2)
+
+		height3 = rect3.get_height()
+		t3 = plt.text(rect1.get_x()+rect1.get_width()/2., height1 + height2 + (height3/5) , label1, ha='center', va='bottom', rotation = 'vertical', fontsize=6)
+		t3.set_visible(False)
+		txt.append(t3)
+
+
+def show_percentages(event):
+	if event.key != 't':
+		return
+
+	for t in txt:
+		t.set_visible(not t.get_visible())
+		plt.draw()
 
 plt.ylabel('Total GDP (Rs. Crore)')
 plt.xlabel('Year')
@@ -265,7 +323,16 @@ x = np.array([i for i in range(len(df_1993_94.index.tolist()))])
 plt.xticks(x, df_1993_94.index.tolist(), rotation = 'vertical')
 
 plt.legend((p1[0], p2[0], p3[0]), ('Primary Sector', 'Secondary Sector', 'Tertiary Sector'))
+
+plt.connect('key_press_event', show_percentages)
+
 plt.show()
+
+# time.sleep(10)
+
+# toggle_plot()
+
+
 
 
 
