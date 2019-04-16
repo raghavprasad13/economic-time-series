@@ -35,15 +35,16 @@ col_list_1999_2000_1 = df_sector_1999_2000_1.columns
 col_list_1999_2000_2 = df_sector_1999_2000_2.columns
 col_list_1999_2000_3 = df_sector_1999_2000_3.columns
 
+# print(col_list_1999_2000_1)
 
-df_sector_1993_94_1 = df_sector_1993_94_1.loc[4:38, df_sector_1993_94_1.columns.isin([col_list_1993_94_1[0], col_list_1993_94_1[2], col_list_1993_94_1[5]])].set_index(col_list_1993_94_1[0])
+df_sector_1993_94_1 = df_sector_1993_94_1.loc[4:37, df_sector_1993_94_1.columns.isin([col_list_1993_94_1[0], col_list_1993_94_1[2], col_list_1993_94_1[3], col_list_1993_94_1[5]])].set_index(col_list_1993_94_1[0])
 df_sector_1993_94_2 = df_sector_1993_94_2.loc[4:38, df_sector_1993_94_2.columns.isin([col_list_1993_94_2[0], col_list_1993_94_2[2], col_list_1993_94_2[3], col_list_1993_94_2[5]])].set_index(col_list_1993_94_2[0])
 df_sector_1993_94_3 = df_sector_1993_94_3.loc[5:39, df_sector_1993_94_3.columns.isin([col_list_1993_94_3[0], col_list_1993_94_3[2], col_list_1993_94_3[4]])].set_index(col_list_1993_94_3[0])
 
 
-df_sector_1999_2000_1 = df_sector_1999_2000_1.loc[4:62, df_sector_1999_2000_1.columns.isin([col_list_1999_2000_1[0], col_list_1999_2000_1[1], col_list_1999_2000_1[4]])].set_index(col_list_1999_2000_1[0])
-df_sector_1999_2000_2 = df_sector_1999_2000_2.loc[4:62, df_sector_1999_2000_2.columns.isin([col_list_1999_2000_2[0], col_list_1999_2000_2[1], col_list_1999_2000_2[2], col_list_1999_2000_2[4]])].set_index(col_list_1999_2000_2[0])
-df_sector_1999_2000_3 = df_sector_1999_2000_3.loc[5:63, df_sector_1999_2000_3.columns.isin([col_list_1999_2000_3[0], col_list_1999_2000_3[1], col_list_1999_2000_3[3]])].set_index(col_list_1999_2000_3[0])
+df_sector_1999_2000_1 = df_sector_1999_2000_1.loc[4:61, df_sector_1999_2000_1.columns.isin([col_list_1999_2000_1[0], col_list_1999_2000_1[1], col_list_1999_2000_1[2], col_list_1999_2000_1[4]])].set_index(col_list_1999_2000_1[0])
+df_sector_1999_2000_2 = df_sector_1999_2000_2.loc[4:61, df_sector_1999_2000_2.columns.isin([col_list_1999_2000_2[0], col_list_1999_2000_2[1], col_list_1999_2000_2[2], col_list_1999_2000_2[4]])].set_index(col_list_1999_2000_2[0])
+df_sector_1999_2000_3 = df_sector_1999_2000_3.loc[5:62, df_sector_1999_2000_3.columns.isin([col_list_1999_2000_3[0], col_list_1999_2000_3[1], col_list_1999_2000_3[3]])].set_index(col_list_1999_2000_3[0])
 
 # print(df_sector_1999_2000_1)
 # print()
@@ -73,6 +74,7 @@ col_list_1999_2000_3 = df_sector_1999_2000_3.columns
 
 for x in df_sector_1993_94_1.index.tolist():
 	df_sector_1993_94_1.loc[x][col_list_1993_94_1[2]] = int(df_sector_1993_94_1.ix[x][col_list_1993_94_1[2]].split(' ')[0])
+	df_sector_1993_94_1.loc[x][col_list_1993_94_1[3]] = int(df_sector_1993_94_1.ix[x][col_list_1993_94_1[3]].split(' ')[0])
 	df_sector_1993_94_1.loc[x][col_list_1993_94_1[5]] = int(df_sector_1993_94_1.ix[x][col_list_1993_94_1[5]].split(' ')[0])
 	
 	df_sector_1993_94_2.loc[x][col_list_1993_94_2[2]] = int(df_sector_1993_94_2.ix[x][col_list_1993_94_2[2]].split(' ')[0])
@@ -86,6 +88,7 @@ for x in df_sector_1993_94_1.index.tolist():
 
 for x in df_sector_1999_2000_1.index.tolist():
 	df_sector_1999_2000_1.loc[x][col_list_1999_2000_1[1]] = int(df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[1]].split(' ')[0])
+	df_sector_1999_2000_1.loc[x][col_list_1999_2000_1[2]] = int(df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[2]].split(' ')[0])
 	df_sector_1999_2000_1.loc[x][col_list_1999_2000_1[4]] = int(df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[4]].split(' ')[0])
 
 	df_sector_1999_2000_2.loc[x][col_list_1999_2000_2[1]] = int(df_sector_1999_2000_2.ix[x][col_list_1999_2000_2[1]].split(' ')[0])
@@ -98,6 +101,7 @@ for x in df_sector_1999_2000_1.index.tolist():
 
 
 const_agri_99_to_93 = df_sector_1993_94_1.ix['1993-94'][col_list_1993_94_1[2]]/df_sector_1999_2000_1.ix['1993-94'][col_list_1999_2000_1[1]]
+const_alli_99_to_93 = df_sector_1993_94_1.ix['1993-94'][col_list_1993_94_1[3]]/df_sector_1999_2000_1.ix['1993-94'][col_list_1999_2000_1[2]]
 const_mini_99_to_93 = df_sector_1993_94_1.ix['1993-94'][col_list_1993_94_1[5]]/df_sector_1999_2000_1.ix['1993-94'][col_list_1999_2000_1[4]]
 const_manu_99_to_93 = df_sector_1993_94_2.ix['1993-94'][col_list_1993_94_2[2]]/df_sector_1999_2000_2.ix['1993-94'][col_list_1999_2000_2[1]]
 const_elec_99_to_93 = df_sector_1993_94_2.ix['1993-94'][col_list_1993_94_2[3]]/df_sector_1999_2000_2.ix['1993-94'][col_list_1999_2000_2[2]]
@@ -109,7 +113,7 @@ const_fina_99_to_93 = df_sector_1993_94_3.ix['1993-94'][col_list_1993_94_3[2]]/d
 # print(df_sector_1999_2000_1.index.tolist()[55:])
 
 for x in df_sector_1999_2000_1.index.tolist()[0:20]:
-	df_sector_1993_94_1.loc[x] = [const_agri_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[1]], const_mini_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[4]]]
+	df_sector_1993_94_1.loc[x] = [const_agri_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[1]], const_alli_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[2]], const_mini_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[4]]]
 	df_sector_1993_94_2.loc[x] = [const_manu_99_to_93 * df_sector_1999_2000_2.ix[x][col_list_1999_2000_2[1]], const_elec_99_to_93 * df_sector_1999_2000_2.ix[x][col_list_1999_2000_2[2]], const_cons_99_to_93 * df_sector_1999_2000_2.ix[x][col_list_1999_2000_2[4]]]
 	df_sector_1993_94_3.loc[x] = [const_comm_99_to_93 * df_sector_1999_2000_3.ix[x][col_list_1999_2000_3[0]], const_trad_99_to_93 * df_sector_1999_2000_3.ix[x][col_list_1999_2000_3[1]], const_fina_99_to_93 * df_sector_1999_2000_3.ix[x][col_list_1999_2000_3[2]]]
 
@@ -117,12 +121,20 @@ df_sector_1993_94_1.sort_index(inplace=True)
 df_sector_1993_94_2.sort_index(inplace=True)
 df_sector_1993_94_3.sort_index(inplace=True)
 
-for x in df_sector_1999_2000_1.index.tolist()[55:]:
-	df_sector_1993_94_1.loc[x] = [const_agri_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[1]], const_mini_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[4]]]
+for x in df_sector_1999_2000_1.index.tolist()[54:]:
+	df_sector_1993_94_1.loc[x] = [const_agri_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[1]], const_alli_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[2]], const_mini_99_to_93 * df_sector_1999_2000_1.ix[x][col_list_1999_2000_1[4]]]
 	df_sector_1993_94_2.loc[x] = [const_manu_99_to_93 * df_sector_1999_2000_2.ix[x][col_list_1999_2000_2[1]], const_elec_99_to_93 * df_sector_1999_2000_2.ix[x][col_list_1999_2000_2[2]], const_cons_99_to_93 * df_sector_1999_2000_2.ix[x][col_list_1999_2000_2[4]]]
 	df_sector_1993_94_3.loc[x] = [const_comm_99_to_93 * df_sector_1999_2000_3.ix[x][col_list_1999_2000_3[0]], const_trad_99_to_93 * df_sector_1999_2000_3.ix[x][col_list_1999_2000_3[1]], const_fina_99_to_93 * df_sector_1999_2000_3.ix[x][col_list_1999_2000_3[2]]]
 
+df_1993_94_all_subsectors = df_sector_1993_94_1
 
+for x in df_sector_1993_94_2.columns:
+	df_1993_94_all_subsectors[x] = df_sector_1993_94_2[x]
+
+for x in df_sector_1993_94_3.columns:
+	df_1993_94_all_subsectors[x] = df_sector_1993_94_3[x]
+
+# df_1993_94_all_subsectors = df_1993_94_all_subsectors.drop('Primary sector', axis = 1)
 
 df_sector_1993_94_1['Primary sector'] = pd.Series([(df_sector_1993_94_1.ix[x][col_list_1993_94_1[2]]+df_sector_1993_94_1.ix[x][col_list_1993_94_1[5]]) for x in df_sector_1993_94_1.index.tolist()], index=df_sector_1993_94_1.index)
 df_sector_1993_94_2['Secondary sector'] = pd.Series([(df_sector_1993_94_2.ix[x][col_list_1993_94_2[2]]+df_sector_1993_94_2.ix[x][col_list_1993_94_2[3]]+df_sector_1993_94_2.ix[x][col_list_1993_94_2[5]]) for x in df_sector_1993_94_2.index.tolist()], index=df_sector_1993_94_2.index)
@@ -178,15 +190,19 @@ df_average_growth.loc[:] /= 2
 diff_df = df_growth_1999_2000.sub(df_growth_1993_94)
 
 
+# print(df_1993_94_all_subsectors)
+# print()
+# print('########################################################################################\n')
+# print(df_1993_94_all_subsectors.columns)
 # print(df_sector_1993_94_1)
 # print()
 # print('########################################################################################\n')
 # print(df_sector_1993_94_2)
 # print()
 # print('########################################################################################\n')
-# print(df_sector_1993_94_3)
-# print()
-# print('########################################################################################\n')
+print(df_sector_1993_94_3)
+print()
+print('########################################################################################\n')
 # print(df_sector_1999_2000_1)
 # print()
 # print('########################################################################################\n')
@@ -196,9 +212,9 @@ diff_df = df_growth_1999_2000.sub(df_growth_1993_94)
 # print(df_sector_1999_2000_3)
 # print()
 # print('########################################################################################\n')
-print(df_1993_94)
-print()
-print('########################################################################################\n')
+# print(df_1993_94)
+# print()
+# print('########################################################################################\n')
 # print(df_1999_2000)
 # print()
 # print('########################################################################################\n')
@@ -237,6 +253,58 @@ print('#########################################################################
 #         t.cell(i+1,j).text = str(df_growth_1993_94.values[i,j])
 
 # doc.save("./Growth.docx")
+
+df_sector_1993_94_1['Allied activities'] = pd.Series([df_sector_1993_94_1.ix[x][col_list_1993_94_1[2]] - df_sector_1993_94_1.ix[x][col_list_1993_94_1[3]] for x in df_sector_1993_94_1.index.tolist()], index = df_sector_1993_94_1.index)
+
+plt.plot(df_sector_1993_94_1.index, df_sector_1993_94_1[col_list_1993_94_1[2]], 'r-o', label = 'Agriculture')
+plt.plot(df_sector_1993_94_1.index, df_sector_1993_94_1['Allied activities'], 'b-o', label = 'Allied activities')
+plt.plot(df_sector_1993_94_1.index, df_sector_1993_94_1[col_list_1993_94_1[5]], 'g-o', label = 'Mining')
+x = np.array([i for i in range(len(df_sector_1993_94_1.index.tolist()))])
+plt.xticks(x, list(df_sector_1993_94_1.index), rotation = 'vertical')
+
+plt.title('Primary sector (Base year: 1993-94)')
+
+plt.ylabel('Gross Product')
+plt.xlabel('Year')
+plt.gca().legend(('Agriculture', 'Allied activities', 'Mining'))
+plt.show()
+
+
+
+
+
+plt.plot(df_sector_1993_94_2.index, df_sector_1993_94_2[col_list_1993_94_2[2]], 'r-o', label = 'Manufacturing')
+plt.plot(df_sector_1993_94_2.index, df_sector_1993_94_2[col_list_1993_94_2[3]], 'b-o', label = 'Electricity, Gas & Water')
+plt.plot(df_sector_1993_94_2.index, df_sector_1993_94_2[col_list_1993_94_2[5]], 'g-o', label = 'Construction')
+x = np.array([i for i in range(len(df_sector_1993_94_2.index.tolist()))])
+plt.xticks(x, list(df_sector_1993_94_2.index), rotation = 'vertical')
+
+plt.title('Secondary sector (Base year: 1993-94)')
+
+plt.ylabel('Gross Product')
+plt.xlabel('Year')
+plt.gca().legend(('Manufacturing', 'Electricity, Gas & Water', 'Construction'))
+plt.show()
+
+
+
+
+plt.plot(df_sector_1993_94_3.index, df_sector_1993_94_3[col_list_1993_94_3[0]], 'r-o', label = 'Community, social & personal services')
+plt.plot(df_sector_1993_94_3.index, df_sector_1993_94_3[col_list_1993_94_3[1]], 'b-o', label = 'Trade, hotels, transport & communication')
+plt.plot(df_sector_1993_94_3.index, df_sector_1993_94_3[col_list_1993_94_3[2]], 'g-o', label = 'Financing, insurance, real estate & business services')
+x = np.array([i for i in range(len(df_sector_1993_94_3.index.tolist()))])
+plt.xticks(x, list(df_sector_1993_94_3.index), rotation = 'vertical')
+
+plt.title('Tertiary sector (Base year: 1993-94)')
+
+plt.ylabel('Gross Product')
+plt.xlabel('Year')
+plt.gca().legend(('Community, social & personal services', 'Trade, hotels, transport & communication', 'Financing, insurance, real estate & business services'))
+plt.show()
+
+
+
+
 
 plt.plot(df_average_growth.index, df_average_growth['Primary sector'], 'b-o', label='PS')
 plt.plot(df_average_growth.index, df_average_growth['Secondary sector'], 'r-o', label='SS')
@@ -327,12 +395,4 @@ plt.legend((p1[0], p2[0], p3[0]), ('Primary Sector', 'Secondary Sector', 'Tertia
 plt.connect('key_press_event', show_percentages)
 
 plt.show()
-
-# time.sleep(10)
-
-# toggle_plot()
-
-
-
-
 
