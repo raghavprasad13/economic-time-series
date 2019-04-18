@@ -365,12 +365,12 @@ for rect1, rect2, rect3, label1, label2, label3 in zip(primary_rects, secondary_
 		txt.append(t1)
 
 		height2 = rect2.get_height()
-		t2 = plt.text(rect1.get_x()+rect1.get_width()/2., (height2/6)+ height1, label1, ha='center', va='bottom', rotation = 'vertical', fontsize=6)
+		t2 = plt.text(rect1.get_x()+rect1.get_width()/2., (height2/6)+ height1, label2, ha='center', va='bottom', rotation = 'vertical', fontsize=6)
 		t2.set_visible(False)
 		txt.append(t2)
 
 		height3 = rect3.get_height()
-		t3 = plt.text(rect1.get_x()+rect1.get_width()/2., height1 + height2 + (height3/5) , label1, ha='center', va='bottom', rotation = 'vertical', fontsize=6)
+		t3 = plt.text(rect1.get_x()+rect1.get_width()/2., height1 + height2 + (height3/5) , label3, ha='center', va='bottom', rotation = 'vertical', fontsize=6)
 		t3.set_visible(False)
 		txt.append(t3)
 
