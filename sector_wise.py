@@ -76,7 +76,7 @@ for x in df_sector_1993_94_1.index.tolist():
 	df_sector_1993_94_1.loc[x][col_list_1993_94_1[2]] = int(df_sector_1993_94_1.ix[x][col_list_1993_94_1[2]].split(' ')[0])
 	df_sector_1993_94_1.loc[x][col_list_1993_94_1[3]] = int(df_sector_1993_94_1.ix[x][col_list_1993_94_1[3]].split(' ')[0])
 	df_sector_1993_94_1.loc[x][col_list_1993_94_1[5]] = int(df_sector_1993_94_1.ix[x][col_list_1993_94_1[5]].split(' ')[0])
-	
+
 	df_sector_1993_94_2.loc[x][col_list_1993_94_2[2]] = int(df_sector_1993_94_2.ix[x][col_list_1993_94_2[2]].split(' ')[0])
 	df_sector_1993_94_2.loc[x][col_list_1993_94_2[3]] = int(df_sector_1993_94_2.ix[x][col_list_1993_94_2[3]].split(' ')[0])
 	df_sector_1993_94_2.loc[x][col_list_1993_94_2[5]] = int(df_sector_1993_94_2.ix[x][col_list_1993_94_2[5]].split(' ')[0])
@@ -149,7 +149,7 @@ df_1993_94 = pd.DataFrame(index = df_sector_1993_94_1.index, columns = None)
 df_1999_2000 = pd.DataFrame(index = df_sector_1999_2000_1.index, columns = None)
 # df_average = pd.DataFrame(index = df_sector_1993_94_1.index, columns = None)
 
-df_1993_94['Primary sector'] = df_sector_1993_94_1['Primary sector'] 
+df_1993_94['Primary sector'] = df_sector_1993_94_1['Primary sector']
 df_1993_94['Secondary sector'] = df_sector_1993_94_2['Secondary sector']
 df_1993_94['Tertiary sector'] = df_sector_1993_94_3['Tertiary sector']
 
@@ -159,9 +159,19 @@ df_1993_94['% Secondary'] = pd.Series([float("{0:.2f}".format(100 * (df_1993_94.
 df_1993_94['% Tertiary'] = pd.Series([float("{0:.2f}".format(100 * (df_1993_94.ix[x]['Tertiary sector']/df_1993_94.ix[x]['Total GDP']))) for x in df_1993_94.index.tolist()], index = df_1993_94.index)
 
 
+df_1993_94_table = pd.DataFrame(index = df_1993_94.index, columns = ['% Primary', '% Secondary', '% Tertiary'])
+
+for x in df_1993_94_table.index:
+	df_1993_94_table.loc[x] = [df_1993_94.ix[x]['% Primary'], df_1993_94.ix[x]['% Secondary'], df_1993_94.ix[x]['% Tertiary']]
+# df_1993_94_table.loc['% Secondary'] = df_1993_94['% Secondary']
+# df_1993_94_table.loc['% Tertiary'] = df_1993_94['% Tertiary']
+
+df_1993_94_table.to_csv('Percentages 1993-94.tsv', sep = '\t', encoding = 'utf-8')
+
+print(df_1993_94_table)
 
 
-df_1999_2000['Primary sector'] = df_sector_1999_2000_1['Primary sector'] 
+df_1999_2000['Primary sector'] = df_sector_1999_2000_1['Primary sector']
 df_1999_2000['Secondary sector'] = df_sector_1999_2000_2['Secondary sector']
 df_1999_2000['Tertiary sector'] = df_sector_1999_2000_3['Tertiary sector']
 
@@ -395,4 +405,3 @@ plt.legend((p1[0], p2[0], p3[0]), ('Primary Sector', 'Secondary Sector', 'Tertia
 plt.connect('key_press_event', show_percentages)
 
 plt.show()
-

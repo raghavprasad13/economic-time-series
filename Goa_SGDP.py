@@ -105,6 +105,7 @@ for x in df_1999_2000.index.tolist()[19:24]:
 	df_2004_05.loc[x] = [const_99_to_04 * df_1999_2000.ix[x]['Goa'], ]
 
 df_2004_05.sort_index(inplace = True)
+print("2004-05")
 print(df_2004_05)
 
 
@@ -187,18 +188,3 @@ plt.xlabel('Year')
 plt.legend((p21[0], p22[0], p23[0], p24[0]), ('Base year: 1980-81', 'Base year: 1993-94', 'Base year: 1999-00', 'Base year: 2004-05'))
 
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
